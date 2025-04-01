@@ -2,6 +2,10 @@ from django.db import models
 
 
 class Breed(models.Model):
+    """
+    Модель для пород собак
+    """
+
     SIZE_CHOICES = [
         ('Tiny', 'Крошечный'),
         ('Small', 'Маленький'),
@@ -43,6 +47,10 @@ class Breed(models.Model):
 
 
 class Dog(models.Model):
+    """
+    Модель для собак
+    """
+
     GENDER_CHOICES = [
         ('M', 'Мальчик'),
         ('F', 'Девочка'),

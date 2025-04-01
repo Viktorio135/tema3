@@ -7,10 +7,18 @@ from .serializers import DogSerializers, BreedSerializers
 
 
 class DogViewSet(ModelViewSet):
+    """
+    Набор представлений для просмотра и редактирования экземпляров собак.
+    """
+
     queryset = Dog.objects.all()
     serializer_class = DogSerializers
 
     def list(self, request, *args, **kwargs):
+        """
+        Получение списка собак с аннотированным средним возрастом по породе.
+        """
+
         response = super().list(request, *args, **kwargs)
 
         subquery = Dog.objects.filter(breed=OuterRef('pk')) \
@@ -27,6 +35,10 @@ class DogViewSet(ModelViewSet):
         return response
 
     def retrieve(self, request, *args, **kwargs):
+        """
+        Получение одного экземпляра собаки с количеством собак породы.
+        """
+
         subquery = Dog.objects.filter(breed=OuterRef('breed')) \
             .values('breed') \
             .annotate(breed_count=Count('id')) \
@@ -42,10 +54,17 @@ class DogViewSet(ModelViewSet):
 
 
 class BreedViewSet(ModelViewSet):
+    """
+    Набор представлений для просмотра и редактирования экземпляров пород.
+    """
+
     queryset = Breed.objects.all()
     serializer_class = BreedSerializers
 
     def list(self, request, *args, **kwargs):
+        """
+        Получение списка пород с количеством собак по породе.
+        """
 
         subquery = Dog.objects.filter(breed=OuterRef('pk')) \
             .values('breed') \

@@ -4,7 +4,11 @@ from .models import Dog, Breed
 
 
 class DogSerializers(serializers.ModelSerializer):
-    breed_count = serializers.SerializerMethodField()
+    """
+    Сериалайзер для собак с дополнительным свойством breed_count
+    """
+
+    breed_count = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Dog
@@ -15,7 +19,11 @@ class DogSerializers(serializers.ModelSerializer):
 
 
 class BreedSerializers(serializers.ModelSerializer):
-    count_dogs = serializers.SerializerMethodField()
+    """
+    Сериалайзер для пород собак с дополнительным свойством count_dogs
+    """
+
+    count_dogs = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Breed
