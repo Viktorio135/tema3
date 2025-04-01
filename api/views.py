@@ -9,6 +9,10 @@ from .serializers import DogSerializers, BreedSerializers
 class DogViewSet(ModelViewSet):
     """
     Набор представлений для просмотра и редактирования экземпляров собак.
+
+    Атрибуты:
+        queryset (QuerySet): QuerySet всех экземпляров Dog.
+        serializer_class (Serializer): Класс сериализатора для экземпляров Dog.
     """
 
     queryset = Dog.objects.all()
@@ -17,6 +21,13 @@ class DogViewSet(ModelViewSet):
     def list(self, request, *args, **kwargs):
         """
         Получение списка собак с аннотированным средним возрастом по породе.
+
+        Аргументы:
+            request (Request): Объект HTTP-запроса.
+
+        Исключения:
+            - 400 Bad Request
+            - 404 Not found
         """
 
         response = super().list(request, *args, **kwargs)
@@ -37,6 +48,13 @@ class DogViewSet(ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         """
         Получение одного экземпляра собаки с количеством собак породы.
+
+        Аргументы:
+            request (Request): Объект HTTP-запроса.
+
+        Исключения:
+            - 400 Bad Request
+            - 404 Not found
         """
 
         subquery = Dog.objects.filter(breed=OuterRef('breed')) \
@@ -56,6 +74,10 @@ class DogViewSet(ModelViewSet):
 class BreedViewSet(ModelViewSet):
     """
     Набор представлений для просмотра и редактирования экземпляров пород.
+
+    Атрибуты:
+        queryset (QuerySet): QuerySet всех экземпляров Breed.
+        serializer_class (Serializer): Класс сериализатора для экземпляров Breed.
     """
 
     queryset = Breed.objects.all()
@@ -64,6 +86,13 @@ class BreedViewSet(ModelViewSet):
     def list(self, request, *args, **kwargs):
         """
         Получение списка пород с количеством собак по породе.
+        
+        Аргументы:
+            request (Request): Объект HTTP-запроса.
+
+        Исключения:
+            - 400 Bad Request
+            - 404 Not found
         """
 
         subquery = Dog.objects.filter(breed=OuterRef('pk')) \
