@@ -8,7 +8,7 @@ class Breed(models.Model):
         ('Medium', 'Средний'),
         ('Large', 'Крупный'),
     ]
-    
+
     RATE_CHOICES = [(i, str(i)) for i in range(1, 6)]
 
     name = models.CharField(verbose_name='название', max_length=200)
@@ -62,8 +62,14 @@ class Dog(models.Model):
         choices=GENDER_CHOICES
     )
     color = models.CharField(verbose_name='цвет', max_length=100)
-    favorite_food = models.CharField(verbose_name='любимая еда', max_length=200)
-    favorite_toy = models.CharField(verbose_name='любимая игрушка', max_length=200)
+    favorite_food = models.CharField(
+        verbose_name='любимая еда',
+        max_length=200
+    )
+    favorite_toy = models.CharField(
+        verbose_name='любимая игрушка',
+        max_length=200
+    )
 
     class Meta:
         verbose_name = 'Собака'
